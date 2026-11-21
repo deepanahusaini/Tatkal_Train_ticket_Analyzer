@@ -1,0 +1,399 @@
+{
+  "entities": {
+    "UserPublicProfile": {
+      "title": "User Public Profile",
+      "description": "Non-PII display preferences and railway defaults for a user.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "homeStation": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 10,
+          "pattern": "^[A-Z0-9]+$"
+        },
+        "preferredClass": {
+          "type": "string",
+          "enum": ["1A", "2A", "3A", "3E", "CC", "EC", "SL", "2S"]
+        },
+        "preferredQuota": {
+          "type": "string",
+          "enum": ["TQ", "PT", "GN", "LD", "SS"]
+        },
+        "theme": {
+          "type": "string",
+          "enum": ["dark", "light"]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "displayName", "homeStation", "preferredClass", "preferredQuota", "theme", "createdAt", "updatedAt"]
+    },
+    "UserPrivateInfo": {
+      "title": "User Private Info",
+      "description": "Isolated PII and alert channel configuration accessible strictly to the owner or verified admin.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "minLength": 3,
+          "maxLength": 254
+        },
+        "telegramHandle": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "emailAlerts": {
+          "type": "boolean"
+        },
+        "telegramAlerts": {
+          "type": "boolean"
+        },
+        "browserAlerts": {
+          "type": "boolean"
+        },
+        "windowReminderMinutes": {
+          "type": "integer"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "email", "telegramHandle", "emailAlerts", "telegramAlerts", "browserAlerts", "windowReminderMinutes", "createdAt", "updatedAt"]
+    },
+    "TrackedTrain": {
+      "title": "Tracked Train",
+      "description": "A user-monitored train journey and Tatkal/waitlist watch configuration.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "userId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "trainNumber": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 10,
+          "pattern": "^[A-Z0-9]+$"
+        },
+        "trainName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 120
+        },
+        "sourceCode": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 10,
+          "pattern": "^[A-Z0-9]+$"
+        },
+        "destinationCode": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 10,
+          "pattern": "^[A-Z0-9]+$"
+        },
+        "travelDate": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 10,
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "travelClass": {
+          "type": "string",
+          "enum": ["1A", "2A", "3A", "3E", "CC", "EC", "SL", "2S"]
+        },
+        "quota": {
+          "type": "string",
+          "enum": ["TQ", "PT", "GN", "LD", "SS"]
+        },
+        "targetStatus": {
+          "type": "string",
+          "enum": ["AVAILABLE", "RAC", "WL_IMPROVEMENT", "WINDOW_OPEN"]
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "status": {
+          "type": "string",
+          "enum": ["active", "archived"]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["id", "userId", "trainNumber", "trainName", "sourceCode", "destinationCode", "travelDate", "travelClass", "quota", "targetStatus", "notes", "status", "createdAt", "updatedAt"]
+    },
+    "UserAlert": {
+      "title": "User Alert",
+      "description": "In-app railway alert notification scoped to a specific user.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "userId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "trainNumber": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 10,
+          "pattern": "^[A-Z0-9]+$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 140
+        },
+        "message": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 500
+        },
+        "category": {
+          "type": "string",
+          "enum": ["AVAILABILITY", "WAITLIST", "BOOKING_WINDOW", "RUNNING_STATUS"]
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["info", "warning", "critical"]
+        },
+        "isRead": {
+          "type": "boolean"
+        },
+        "sourceType": {
+          "type": "string",
+          "enum": ["DEMO_SIMULATED", "AUTHORIZED_API", "AI_PREDICTION", "SYSTEM_RULE"]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["id", "userId", "trainNumber", "title", "message", "category", "severity", "isRead", "sourceType", "createdAt", "updatedAt"]
+    },
+    "SavedPrediction": {
+      "title": "Saved Prediction",
+      "description": "Immutable snapshot of an AI/ML waitlist confirmation probability estimate.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "userId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "trainNumber": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 10,
+          "pattern": "^[A-Z0-9]+$"
+        },
+        "trainName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 120
+        },
+        "travelDate": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 10,
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "travelClass": {
+          "type": "string",
+          "enum": ["1A", "2A", "3A", "3E", "CC", "EC", "SL", "2S"]
+        },
+        "quota": {
+          "type": "string",
+          "enum": ["TQ", "PT", "GN", "LD", "SS"]
+        },
+        "waitlistType": {
+          "type": "string",
+          "enum": ["GNWL", "TQWL", "RLWL", "PQWL", "RAC"]
+        },
+        "waitlistNumber": {
+          "type": "integer"
+        },
+        "probability": {
+          "type": "number"
+        },
+        "confidenceLevel": {
+          "type": "string",
+          "enum": ["HIGH", "MEDIUM", "LOW"]
+        },
+        "recommendation": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 400
+        },
+        "dataSourceLabel": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 60
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["id", "userId", "trainNumber", "trainName", "travelDate", "travelClass", "quota", "waitlistType", "waitlistNumber", "probability", "confidenceLevel", "recommendation", "dataSourceLabel", "createdAt"]
+    },
+    "AdminGrant": {
+      "title": "Admin Grant",
+      "description": "RBAC admin marker document controlled strictly by verified admins.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "minLength": 3,
+          "maxLength": 254
+        },
+        "grantedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "email", "grantedAt"]
+    },
+    "AuditLog": {
+      "title": "Audit Log",
+      "description": "Immutable admin audit entry recording operational actions.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "actorUid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "action": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 80
+        },
+        "target": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "details": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["info", "warning", "critical"]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["id", "actorUid", "action", "target", "details", "severity", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserPublicProfile" },
+      "description": "Public non-PII user railway preferences."
+    },
+    "/users/{userId}/private/{docId}": {
+      "schema": { "$ref": "#/entities/UserPrivateInfo" },
+      "description": "Private PII and alert channel settings isolated per user."
+    },
+    "/trackedTrains/{trackId}": {
+      "schema": { "$ref": "#/entities/TrackedTrain" },
+      "description": "User-monitored trains and Tatkal availability watches."
+    },
+    "/alerts/{alertId}": {
+      "schema": { "$ref": "#/entities/UserAlert" },
+      "description": "In-app railway alert notifications scoped by userId."
+    },
+    "/predictions/{predictionId}": {
+      "schema": { "$ref": "#/entities/SavedPrediction" },
+      "description": "Immutable saved waitlist confirmation probability estimates."
+    },
+    "/admins/{adminId}": {
+      "schema": { "$ref": "#/entities/AdminGrant" },
+      "description": "Trusted admin role grants."
+    },
+    "/auditLogs/{logId}": {
+      "schema": { "$ref": "#/entities/AuditLog" },
+      "description": "Admin-only immutable operational audit logs."
+    }
+  }
+}
